@@ -29,8 +29,9 @@ func HTMLHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusOK)
 	//Устанвливаем заголовок
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.Header().Set("Content-Type", "text/html")
 	//Отправляем результат
 	w.Write(file)
 }
@@ -96,7 +97,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Устанавливаем заголовок
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.Header().Set("Content-Type", "text/html")
 	//Отправляем результат конвертации
 	w.Write([]byte(result))
 }
