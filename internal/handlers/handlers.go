@@ -19,6 +19,7 @@ func HTMLHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		//Если не удалось возвращаем ошибку
 		http.Error(w, "internal server error", http.StatusInternalServerError)
+		return
 	}
 
 	//Читаем данные из файла "index.html"
@@ -98,6 +99,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	//Устанавливаем заголовок
 	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusOK)
 	//Отправляем результат конвертации
 	w.Write([]byte(result))
 }
