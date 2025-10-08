@@ -29,9 +29,9 @@ func HTMLHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
 	//Устанвливаем заголовок
 	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusOK)
 	//Отправляем результат
 	w.Write(file)
 }
