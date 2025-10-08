@@ -15,15 +15,20 @@ import (
 // HTMLHandler обрабатывает GET запрос к корневому пути "/" и возвращает HTML из файла index.html
 func HTMLHandler(w http.ResponseWriter, r *http.Request) {
 	//Получаем текущую директорию
-	dir, err := os.Getwd()
-	if err != nil {
-		//Если не удалось возвращаем ошибку
-		http.Error(w, "internal server error", http.StatusInternalServerError)
-		return
+	dir, _ := os.Getwd()
+
+	var foundPath string
+
+	for {
+		path := filepath.Join(dir, "index.html")
+		if _, err := os.Stat(path); err == nil {
+			foundPath = path
+			break
+		}
 	}
 
 	//Читаем данные из файла "index.html"
-	file, err := os.ReadFile(filepath.Join(dir, "..", "index.html"))
+	file, err := os.ReadFile(foundPath)
 	if err != nil {
 		//Если не удалось возвращаем ошибку
 		http.Error(w, "file not found", http.StatusInternalServerError)
